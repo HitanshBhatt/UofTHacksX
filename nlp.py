@@ -25,7 +25,8 @@ def classifyUrl(url):
     else:
         return 'site'
     
-def make_knn()
+def make_knn():
+    pass
 
 
 def query_knn(type, embed):
