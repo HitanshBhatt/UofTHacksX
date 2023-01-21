@@ -1,0 +1,4 @@
+python-dotenv==0.21.0
+cohere==3.1.7
+annoy==1.17.1
+Flask==2.2.2
