@@ -8,7 +8,7 @@ class Chatbox {
         }
 
         this.state = false;
-        this.message = [];
+        this.messages = [];
     }
 
     display() {

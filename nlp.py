@@ -6,7 +6,7 @@ from annoy import AnnoyIndex
 
 RESOURCE_FILES = ['./data/{}'.format(i) for i in os.listdir('./data')]
 BATCH_SIZE = 20
-KNN_TYPES = ['site', 'video', 'app']
+KNN_TYPES = ['site', 'media', 'app']
 
 
 def get_annoy_file(type):
@@ -18,12 +18,26 @@ def get_annoy_resource(type):
 
 
 def classifyUrl(url):
-    if 'youtube' in url:
-        return 'video'
+    if 'youtube' in url or 'itunes' in url:
+        return 'media'
     elif 'play.google' in url:
         return 'app'
     else:
         return 'site'
+    
+def make_knn()
+
+
+def query_knn(type, embed):
+    if not os.path.exists(get_annoy_resource(type)):
+        print("Couldn't find the resource file {}", get_annoy_resource(type))
+        return
+    elif not os.path.exists(get_annoy_file(type)):
+        print("Couldn't find the annoy tree {}", get_annoy_file(type))
+        return
+    search_index = AnnoyIndex(4096, 'angular')
+    search_index.load(get_annoy_file(type))
+    return search_index.get_nns_by_vector(embed, 3, include_distances=True)
 
 
 if len(sys.argv) < 2:
@@ -43,6 +57,9 @@ elif sys.argv[1] == '-embed':
             if 'url-type' not in resource or not resource['url-type']:
                 resources[i]['url-type'] = classifyUrl(resource['link'])
                 change = True
+            if 'desc-type' not in resource or not resource['desc-type']:
+                resources[i]['desc-type'] = cohere_util.classify(
+                    resource['description'], preset='desc-classification-mavvyx').prediction
             if 'embed' not in resource or not resource['embed']:
                 idxs.append(i)
                 desc.append(resource['description'])
@@ -94,19 +111,9 @@ elif sys.argv[1] == '-query':
         sys.argv) == 2 else sys.argv[2]
     question_embed = cohere_util.embed(question)
     for type in KNN_TYPES:
-        if not os.path.exists(get_annoy_resource(type)):
-            print("Couldn't find the resource file {}", get_annoy_resource(type))
-            continue
-        elif not os.path.exists(get_annoy_file(type)):
-            print("Couldn't find the annoy tree {}", get_annoy_file(type))
-            continue
-
+        sim_id, distance = query_knn(type, question_embed)
         with open(get_annoy_resource(type), 'r') as f:
             resources = json.load(f)
-        search_index = AnnoyIndex(4096, 'angular')
-        search_index.load(get_annoy_file(type))
-        sim_id, distance = search_index.get_nns_by_vector(question_embed, 3,
-                                                          include_distances=True)
         if sim_id:
             print("Type:", type)
             for i in range(len(sim_id)):
