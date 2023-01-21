@@ -40,7 +40,7 @@ for num in range(1,11):
         title = result.find('h3').text
         location = result.find('div', class_='service-info').text
         description = result.find('div', class_='service-desc').text
-        link = result.find('a').href
+        link = result.find('a')['href']
         store_data.append([title, location, description, link])
 
 fileObject.write(json.dumps(store_data, indent=4))
