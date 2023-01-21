@@ -4,7 +4,7 @@ class Chatbox {
         this.args = {
             openButton: document.querySelector('.chatbox__button'),
             chatBox: document.querySelector('.chatbox__support'),
-            sendButton: document.querySelector('.send__button'),
+            sendButton: document.querySelector('.send__button')
         }
 
         this.state = false;
@@ -36,7 +36,7 @@ class Chatbox {
 
     onSendButton(chatbox) {
         var textField = chatbox.querySelector('input');
-        let text1 = textFielld.
+        let text1 = textField.value
         console.log(text1)
         if (text1 === "") {
             return;
@@ -78,10 +78,10 @@ class Chatbox {
                 html += '<div class="messages__item messages__item--operator">' + item.message + '</div>'
             }
         });
-        const chatmessage = chatbox.querySelector('.chatbox__mesages');
+        const chatmessage = chatbox.querySelector('.chatbox__messages');
         chatmessage.innerHTML = html;
     }
-
-
-
 }
+
+const chatbox = new Chatbox();
+chatbox.display()
