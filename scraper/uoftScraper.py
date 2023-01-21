@@ -17,7 +17,7 @@ def cleanText(s):
     return re.sub(r'\s+', ' ', s.strip())
 
 
-fileObject = open("data/uoft.json", "w")
+fileObject = open("../data/uoft.json", "w")
 
 # fileObject.write(data)
 store_data = []
