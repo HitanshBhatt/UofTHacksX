@@ -37,15 +37,13 @@ for num in range(1,11):
 
     #print(service_titles)
     for result in results:
-        print(result)
-        title = result.find('h3')
-        location = result.find('div')
-        description = result.find('service-desc')
-        link = result.find('a')
+        title = result.find('h3').text
+        location = result.find('div', class_='service-info').text
+        description = result.find('div', class_='service-desc').text
+        link = result.find('a').href
         store_data.append([title, location, description, link])
-        #print(title.text, title.next_sibling)
 
-#fileObject.write(json.dumps(store_data, indent=4))
-print(store_data)
+fileObject.write(json.dumps(store_data, indent=4))
+# print(store_data)
 
 
