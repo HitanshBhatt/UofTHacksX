@@ -7,14 +7,23 @@ from annoy import AnnoyIndex
 RESOURCE_FILES = ['./data/{}'.format(i) for i in os.listdir('./data')]
 BATCH_SIZE = 20
 KNN_TYPES = ['site', 'media', 'app']
+KNN_DESC = ['resource', 'phone', 'physical']
+
+all_resources = []
+for file_name in RESOURCE_FILES:
+    if not os.path.exists(file_name):
+        print("Couldn't find file {}.".format(file_name))
+        continue
+    with open(file_name, 'r') as f:
+        all_resources.extend(json.load(f))
 
 
-def get_annoy_file(type):
-    return 'knn/{}-search.ann'.format(type)
+def get_annoy_file(url_type, desc_type):
+    return 'knn/{}-{}-search.ann'.format(url_type if url_type else 'none', desc_type if desc_type else 'none')
 
 
-def get_annoy_resource(type):
-    return 'knn/{}-serach.json'.format(type)
+def get_annoy_resource(url_type, desc_type):
+    return 'knn/{}-{}-serach.json'.format(url_type if url_type else 'none', desc_type if desc_type else 'none')
 
 
 def classifyUrl(url):
@@ -26,23 +35,44 @@ def classifyUrl(url):
         return 'site'
 
 
-def make_knn():
-    pass
-
-
-def query_knn(type, embed):
-    if not os.path.exists(get_annoy_resource(type)):
-        print("Couldn't find the resource file {}".format(
-            get_annoy_resource(type)))
+def build_knn(url_type, desc_type):
+    filtered_resources = list(filter(lambda x: (not url_type or x['url-type'] == url_type) and (
+        not desc_type or x['desc-type'] == desc_type), all_resources))
+    filtered_embeds = []
+    clean_resources = []
+    for i in filtered_resources:
+        filtered_embeds.append(i['embed'])
+        del i['embed']
+        clean_resources.append(i)
+    if len(filtered_embeds) == 0:
+        print("No embeds found for {} {}".format(url_type, desc_type))
         return
-    elif not os.path.exists(get_annoy_file(type)):
-        print("Couldn't find the annoy tree {}".format(get_annoy_file(type)))
+    elif not all(filtered_embeds):
+        print("Some empty embeds for {} {}".format(url_type, desc_type))
+        return
+    knn = AnnoyIndex(len(filtered_embeds[0]), 'angular')
+    for i, embed in enumerate(filtered_embeds):
+        knn.add_item(i, embed)
+    knn.build(10)  # 10 trees
+    knn.save(get_annoy_file(url_type, desc_type))
+    with open(get_annoy_resource(url_type, desc_type), 'w') as f:
+        json.dump(clean_resources, f)
+
+
+def query_knn(url_type, desc_type, embed):
+    if not os.path.exists(get_annoy_resource(url_type, desc_type)):
+        print("Couldn't find the resource file {}".format(
+            get_annoy_resource(url_type, desc_type)))
+        return
+    elif not os.path.exists(get_annoy_file(url_type, desc_type)):
+        print("Couldn't find the annoy tree {}".format(get_annoy_file(url_type, desc_type)))
         return
     search_index = AnnoyIndex(4096, 'angular')
-    search_index.load(get_annoy_file(type))
-    ids, distance = search_index.get_nns_by_vector(embed, 3, include_distances=True)
-    with open(get_annoy_resource(type), 'r') as f:
-                resources = json.load(f)
+    search_index.load(get_annoy_file(url_type, desc_type))
+    ids, distance = search_index.get_nns_by_vector(
+        embed, 3, include_distances=True)
+    with open(get_annoy_resource(url_type, desc_type), 'r') as f:
+        resources = json.load(f)
     res = [resources[i] for i in ids]
     return res, distance
 
@@ -87,33 +117,9 @@ if __name__ == '__main__':
                 with open(file_name, 'w') as f:
                     json.dump(resources, f)
     elif sys.argv[1] == '-knn':
-        all_resources = []
-        for file_name in RESOURCE_FILES:
-            if not os.path.exists(file_name):
-                print("Couldn't find file {}.".format(file_name))
-                continue
-            with open(file_name, 'r') as f:
-                all_resources.extend(json.load(f))
-        clean_resources = [i.copy() for i in all_resources]
-        for i in range(len(clean_resources)):
-            del clean_resources[i]['embed']
         for type in KNN_TYPES:
-            resource_embeds = [i.get('embed', None) for i in list(
-                filter(lambda x:x['url-type'] == type, all_resources))]
-            if not resource_embeds:
-                print("No embeds of type {} found".format(type))
-                continue
-            if not all(resource_embeds):
-                print("Some empty embeds exist for type {}".format(type))
-            search_index = AnnoyIndex(len(resource_embeds[0]), 'angular')
-            # Add embeds
-            for i, embed in enumerate(resource_embeds):
-                search_index.add_item(i, embed)
-            search_index.build(10)  # 10 trees
-            search_index.save(get_annoy_file(type))
-            with open(get_annoy_resource(type), 'w') as f:
-                json.dump(list(
-                    filter(lambda x: x['url-type'] == type, clean_resources)), f)
+            for desc in KNN_DESC:
+                build_knn(type, desc)
     elif sys.argv[1] == '-query':
         question = 'Who can I talk to about depression?' if len(
             sys.argv) == 2 else sys.argv[2]
