@@ -1,0 +1,44 @@
+[
+    {
+        "source": "mcmaster",
+        "name": "COAST (Crisis Outreach and Support Team)",
+        "description": "Hamilton\u2019s crisis line is answered 24 hours a day, 7 days a week. The COAST mobile team, consisting of a mental health worker, and a police officer, will respond to crisis calls between the hours of 8 a.m. and 1 a.m. daily. 905-972-8338",
+        "link": "http://coasthamilton.ca/?page_id=57"
+    },
+    {
+        "source": "mcmaster",
+        "name": "Good2Talk",
+        "description": "Good2Talk is a free, confidential helpline providing professional counselling and information and referrals for mental health, addictions and well-being to post-secondary students in Ontario, 24/7/365. 1-866-925-5454 or dial 211 and ask to be connected to Good2Talk.",
+        "link": "https://good2talk.ca/"
+    },
+    {
+        "source": "mcmaster",
+        "name": "Empower Me (Local & Overseas Graduate Students)",
+        "description": "24/7 accessible counselling services to empower you to thrive, crisis support, mental health and well-being services. Below is the local number if you are in Canada or the US. See the link to find helpline numbers for overseas access. 1-833-628-5589",
+        "link": "https://www.studentcare.ca/rte/en/McMasterUniversity_EmpowerMe_EmpowerMe"
+    },
+    {
+        "source": "mcmaster",
+        "name": "Barrett Centre for Crisis Support",
+        "description": "Barrett Centre for Crisis Support provides a safe environment in the community and responds to the needs of individuals, 16 years of age or older, who experience a mental health crisis and do not require a hospital stay. We provide confidential and free services 24 hours a day, 365 days a year. 24 Hour Crisis Line: 905-529-7878 Toll Free: 1-844-777-3571",
+        "link": "https://www.goodshepherdcentres.ca/barrett-centre-for-crisis-support"
+    },
+    {
+        "source": "mcmaster",
+        "name": "Oakville Distress Centre",
+        "description": "Distress Centre Halton provides telephone and online support to people to better cope with crisis, loneliness, and emotional stress. Also serves the Hamilton area 905-849-4541",
+        "link": "http://www.distresscentreoakville.com"
+    },
+    {
+        "source": "mcmaster",
+        "name": "Assaulted Women's Helpline",
+        "description": "Free, anonymous and confidential telephone and TTY crisis telephone line to all women in the province of Ontario who have experienced any form of abuse. We provide crisis counselling, safety planning, emotional support, information and referrals accessible 24/7/365. GTA: 416-863-0511 GTA TTY: 416-364-8762 Toll-free: 1-866-863-0511 TTY: 1-866-863-7868",
+        "link": "http://www.awhl.org/home"
+    },
+    {
+        "source": "mcmaster",
+        "name": "Crisis Resources in the GTA CAMH Resources",
+        "description": "The CAMH Distress Crisis Resources web page lists a number of phone lines, response teams and hospitals in the GTA.",
+        "link": "https://www.camh.ca/en/health-info/crisis-resources"
+    }
+]
