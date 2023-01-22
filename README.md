@@ -11,10 +11,10 @@ The major component to getting information about existing mental health resource
 ## Running the Code
 
 ### Scraping the Resources
-We currently only pull data from 3 university websites, UofT, Ontario Tech and McMaster. To scrape each site, run each of their respective scrapers under the `scraper` folder. The should then spit the contents of each site into a file under `data`.
+We currently only pull data from 3 university websites, UofT, Ontario Tech and McMaster. To scrape each site, run each of their respective scrapers under the `scraper` folder. They should then spit the contents of each site into a file under `data`.
 
 ### co:here API
-Make sure there is a `.env` file present in the root directory with a valid `cohere-token` so the api calls will work.
+Make sure there is a `.env` file present in the root directory with a valid `cohere-token` so the API calls will work.
 
 ### Converting the Text to Vectors
 Under the root directory, run `python nlp.py -embed` to convert all the description into embedings. This will modify the files in the `data` folder.
