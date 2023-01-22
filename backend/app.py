@@ -21,10 +21,6 @@ def predict():
     return jsonify(message)
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
-
 @app.route("/cookies")
 def cookies():
     res = make_response("Cookies", 200)
@@ -32,3 +28,7 @@ def cookies():
     res.set_cookie("address", "")
 
     return res
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
