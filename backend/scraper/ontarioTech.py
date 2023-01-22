@@ -29,7 +29,7 @@ for accord in content.find_all('ul', type='disc'):
         title = cleanText(link_element.text)
         description = cleanText(element.text)
         link = cleanText(link_element['href'])
-        if link not in urls:
+        if 'https://' in link and link not in urls:
             urls.add(link)
             store_data.append({'source': 'ontario-tech', 'name': title,
                         'description': description, 'link': link})
