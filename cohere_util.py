@@ -25,3 +25,9 @@ def classify(text, model='large', preset=None):
         return co.classify([text], model, preset=preset).classifications[0]
     else:
         return co.classify(text, model, preset=preset).classifications
+    
+def generate(text, preset=None):
+    if not text:
+        print("cohere_classify called with falsy value {}".format(text))
+    else:
+        return co.generate(text, preset=preset, max_tokens=50, temperature=0.1, num_generations=1, k=20, end_sequences=['.']).generations[0].text

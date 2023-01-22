@@ -138,6 +138,8 @@ body {
 }
 
 .avatar p {
+    position: absolute;
+    left: -2px;
     color: #f9fbff;
     margin: 7px 12px;
 }
@@ -206,7 +208,7 @@ body {
 .incoming {
     width: 50%;
     height: 100%;
-    padding: 20px;
+    padding: 10px;
 }
 
 .incoming .bubble {
@@ -216,7 +218,7 @@ body {
 div.typing {
     display: flex;
     justify-content: flex-end;
-    padding: 20px;
+    padding: 10px;
 }
 
 .typing .bubble {
@@ -317,7 +319,7 @@ button {
     opacity: 0.8;
     cursor: pointer;
     outline: 0;
-    background:transparent;
+    background: transparent;
 }
 
 button:hover {
@@ -348,6 +350,11 @@ footer a {
 
 footer a:hover {
     color: #a1e2d9;
+}
+
+div.bubble p {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 @keyframes bounce {

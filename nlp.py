@@ -60,13 +60,29 @@ def build_knn(url_type, desc_type):
 
 
 def query_knn(url_type, desc_type, embed):
+    if not url_type:
+        res = []
+        distance = []
+        for type in KNN_TYPES:
+            cur_res, cur_dis = query_knn(type, desc_type, embed)
+            res += cur_res
+            distance += cur_dis
+        return res, distance
+    elif not desc_type:
+        res = []
+        distance = []
+        for type in KNN_DESC:
+            cur_res, cur_dis = query_knn(url_type, type, embed)
+            res += cur_res
+            distance += cur_dis
+        return res, distance
     if not os.path.exists(get_annoy_resource(url_type, desc_type)):
         print("Couldn't find the resource file {}".format(
             get_annoy_resource(url_type, desc_type)))
-        return
+        return [], []
     elif not os.path.exists(get_annoy_file(url_type, desc_type)):
         print("Couldn't find the annoy tree {}".format(get_annoy_file(url_type, desc_type)))
-        return
+        return [], []
     search_index = AnnoyIndex(4096, 'angular')
     search_index.load(get_annoy_file(url_type, desc_type))
     ids, distance = search_index.get_nns_by_vector(
