@@ -1,25 +1,32 @@
+// $(".person").on('click', function(){
+//     $(this).toggleClass('focus').siblings().removeClass('focus');
+//  })
+
+
 class Chatbox {
     constructor() {
         this.args = {
-            chatBox: document.querySelector('.chatbox__support'),
+            chatBox: document.querySelector('.chatbox__messages'),
             sendButton: document.querySelector('.send__button')
         }
         this.messages = [];
     }
 
     display() {
-        const { openButton, chatBox, sendButton } = this.args;
+        const { chatBox, sendButton } = this.args;
         sendButton.addEventListener('click', () => this.onSendButton(chatBox))
-        const node = chatBox.querySelector('input');
-        node.addEventListener("keyup", ({ key }) => {
-            if (key === "Enter") {
+        const node = document.querySelector('.bottom-bar').querySelector('input');
+        console.log("Added key up listener", node)
+        node.addEventListener("keyup", (event) => {
+            console.log("key");
+            if (event.key === "Enter") {
                 this.onSendButton(chatBox)
             }
         })
     }
 
     onSendButton(chatbox) {
-        var textField = chatbox.querySelector('input');
+        var textField = document.querySelector('div.bottom-bar input');
         let text1 = textField.value
         console.log(text1)
         if (text1 === "") {
@@ -53,18 +60,20 @@ class Chatbox {
 
     updateChatText(chatbox) {
         var html = '';
-        this.messages.slice().reverse().forEach(function (item,) {
+        this.messages.slice().forEach(function (item,) {
             if (item.name === "user") {
-                html += '<div class="messages__item messages__item--visitor">' + item.message + '</div>'
+                html += '<div class="typing"><div class="bubble">' + item.message + '</div></div>'
             }
             else {
+                html += `<div class="incoming">`
                 for (const i of item.data) {
-                    html += `<div><a href=${i.link}>${i.name}</a><p>${i.description}</p></div>`
+                    html += `<div class="bubble chatbox__link"><a href=${i.link} target="_blank">${i.name}<image href="static/link-solid.svg" width="1.25em"
+                    height="1.25em" /></a><p>${i.description}</p></div>`
                 }
+                html += '</div>'
             }
         });
-        const chatmessage = chatbox.querySelector('.chatbox__messages');
-        chatmessage.innerHTML = html;
+        chatbox.innerHTML = html;
     }
 }
 

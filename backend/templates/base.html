@@ -7,6 +7,90 @@
     <title>Chatbot</title>
 </head>
 
+<div class="container">
+    <div class="chatbox">
+        <div class="top-bar">
+            <div class="avatar">
+                <p>M</p>
+            </div>
+            <div class="name">Mental Health Bot</div>
+            <div class="icons">
+                <i class="fas fa-phone"></i>
+                <i class="fas fa-video"></i>
+            </div>
+            <div class="menu">
+                <div class="dots"></div>
+            </div>
+        </div>
+        <div class="middle">
+            <div class='chatbox__messages'></div>
+            <div class="incoming">
+                <div class="bubble">
+                    <div class="ellipsis one"></div>
+                    <div class="ellipsis two"></div>
+                    <div class="ellipsis three"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-bar">
+        <input type="text" placeholder="Ask a question..." />
+        <button class="chatbox__send__button send__button"><svg width="5vh" height="5vh">
+                <image xlink:href="{{ url_for('static', filename='paper-plane-solid.svg') }}" width="5vh"
+                    height="5vh" />
+            </svg>
+    </div>
+</div>
+<!-- <div class="profile">
+    <div class="avatar">
+        <p>H</p>
+    </div>
+    <div class="name2">Harry<p class="email">Harry@potter.com</p>
+    </div>
+</div> -->
+<!-- <ul class="people">
+    <li class="person focus">
+        <span class="title">Voldemort </span>
+        <span class="time">2:50pm</span><br>
+        <span class="preview">What are you getting... Oh, oops...</span>
+    </li>
+    <li class="person">
+        <span class="title">Ron</span>
+        <span class="time">2:25pm</span><br>
+        <span class="preview">Meet me at Hogsmeade and bring...</span>
+    </li>
+    <li class="person">
+        <span class="title">Hermione</span>
+        <span class="time">2:12pm</span><br>
+        <span class="preview">Have you and Ron done your hom...</span>
+    </li>
+</ul> -->
+
+<script>
+    $SCRIPT_ROOT = {{ request.script_root | tojson }};
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='app.js') }}">
+    const chatbox = new Chatbox()
+</script>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+</head>
+
 <body>
     <div class="container">
         <div class="chatbox">
@@ -43,4 +127,4 @@
 
 </body>
 
-</html>
+</html> -->
