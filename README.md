@@ -2,7 +2,7 @@
 ## Functionality
 MentalBase is a platform that interfaces through a chatbot that provides relevant mental health resources for university students by using Artificial Intelligence to best match student needs.
 MentalBase allows the student to:
-- Anonymously talk to an Artificial Intelligence bot and in return, provide a list of mental health resouces relevant to the search query
+- Anonymously talk to an Artificial Intelligence bot and in return, provide a list of mental health resources relevant to the search query
 - Speak to an agent anonymously, who will not know who you are unless you choose to disclose that information
 
 ## How We Built It
