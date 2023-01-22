@@ -1,3 +1,7 @@
 # MentalBase
 ## Functionality
-MentalBase is a platform where one can access mental health resources, converged at one place. You can anonymously talk to an Artificial Intelligence bot, or if you're comfortable, an agent who will not know who you are unless you choose to disclose that information. You can type in any concerns to the bot and it will provide you with a list of resources that match your search query. Furthermore, if you're seeking for more human-like responses, or are just looking for someone to talk to, you can chat with an agent and they will help you to the best of their abilities. The bot and the agent will provide resources for mental health that are offered particularly to university students to better cater their needs. If you feel comfortable sharing your information, the bot will run through your responses to provide you extra information, suchlike resources closer to your physical location, tailored mental health services, etc..
+MentalBase is a ChatBot, connecting a student seeking mental health needs to a centralized platform where one can access mental health resources.
+MentalBase allows the student to:
+- Anonymously talk to an Artificial Intelligence bot and in return, provide a list of mental health resouces relevant to the search query
+- Speak to an agent anonymously, who will not know who you are unless you choose to disclose that information
+
